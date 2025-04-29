@@ -1,6 +1,5 @@
 package ru.r1b.udobsofttask.helper;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -23,7 +22,7 @@ class QsortTest {
     @ParameterizedTest
     @MethodSource("source")
     void quickSort(int[] input, int[] expected) {
-        Qsort.quickSort(input);
+        Qsort.sort(input);
         assertArrayEquals(expected, input);
     }
 }

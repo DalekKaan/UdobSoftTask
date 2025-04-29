@@ -16,6 +16,10 @@ public class XlsxParser {
         Workbook workbook = new XSSFWorkbook(stream);
         var sheet = workbook.getSheetAt(0);
 
+        // todo:
+        // тут возможно есть смысл получать номер последней строки в документе и инициализировать сразу ArrayList
+        // вместо LinkedList для экономии памяти и времени выполнения, однако для этого вообще не помешает ввести
+        // некоторую валидацию документа
         List<Integer> out = new LinkedList<>();
 
         for (Row row : sheet) {

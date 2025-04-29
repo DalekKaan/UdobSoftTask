@@ -28,11 +28,16 @@ public class RowsController {
 
     @GetMapping("/min")
     public RowsMinSchema getMin(@RequestParam String path, @RequestParam int n) {
-        path = filesPath + "/" +  path; // todo: safety
+        // todo:
+        // здесь надо бы проверять путь к файлу на безопасность, чтобы пользователь не мог выйти за пределы filesPath;
+        // не стал этого делать в рамках тестового задания
+        path = filesPath + "/" +  path;
         try {
             return new RowsMinSchema(service.findMin(xlsxParser.parse(new FileInputStream(path)), n));
         } catch (Exception e) {
-            // todo: validation error
+            // todo:
+            // также надо бы написать или использовать валидаторы, которые будут проверять наличие файла и валидность n
+            // тоже не стал делать в рамках тестового
             throw new RuntimeException(e);
         }
     }
