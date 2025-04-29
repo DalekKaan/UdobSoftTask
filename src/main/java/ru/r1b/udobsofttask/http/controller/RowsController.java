@@ -27,7 +27,7 @@ public class RowsController {
     }
 
     @GetMapping("/min")
-    public RowsMinSchema getMin(@RequestParam String path, @RequestParam int n) {
+    public RowsMinSchema getMin(@RequestParam("file") String path, @RequestParam("index") int n) {
         // todo:
         // здесь надо бы проверять путь к файлу на безопасность, чтобы пользователь не мог выйти за пределы filesPath;
         // не стал этого делать в рамках тестового задания
