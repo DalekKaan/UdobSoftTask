@@ -9,7 +9,7 @@ import ru.r1b.udobsofttask.service.RowsService;
 import ru.r1b.udobsofttask.service.XlsxParser;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/rows")
@@ -27,7 +27,7 @@ public class RowsController {
     public RowsMinSchema getMin(String path, int n) {
         try {
             return new RowsMinSchema(service.findMin(xlsxParser.parse(new FileInputStream(path)), n));
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             return new RowsMinSchema(0);
         }
     }

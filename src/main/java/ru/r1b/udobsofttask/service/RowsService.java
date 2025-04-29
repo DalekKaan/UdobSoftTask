@@ -6,7 +6,7 @@ import java.util.List;
 
 @Service
 public class RowsService {
-    public int findMin(List<Integer> list, int n) {
+    public int findMin(List<Number> list, int n) {
         return 0;
     }
 }

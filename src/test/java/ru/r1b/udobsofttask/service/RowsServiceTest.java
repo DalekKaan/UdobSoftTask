@@ -24,7 +24,7 @@ class RowsServiceTest {
 
     @ParameterizedTest
     @MethodSource("source")
-    void findMin(List<Integer> list, int n, int expected) {
+    void findMin(List<Number> list, int n, int expected) {
         assertEquals(expected, new RowsService().findMin(list, n));
     }
 }
