@@ -2,8 +2,10 @@ version: '3.5'
 
 services:
   web:
-    container_name: web_container
+    container_name: task_container
     build: .
     ports:
       - "8080:8080"
     restart: unless-stopped
+    volumes:
+      - ./files:/var/files

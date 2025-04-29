@@ -25,12 +25,13 @@ public class RowsController {
     }
 
     @GetMapping("/min")
-    public RowsMinSchema getMin(@RequestParam("path") String path, @RequestParam("n") int n) {
+    public RowsMinSchema getMin(@RequestParam String path, @RequestParam int n) {
+        path = "/var/files/" + path; // todo: safety
         try {
             return new RowsMinSchema(service.findMin(xlsxParser.parse(new FileInputStream(path)), n));
         } catch (IOException e) {
             // todo: validation error
-            return new RowsMinSchema(0);
+            return new RowsMinSchema(-1);
         }
     }
 }
