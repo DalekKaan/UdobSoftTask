@@ -11,7 +11,6 @@ import ru.r1b.udobsofttask.service.RowsService;
 import ru.r1b.udobsofttask.service.XlsxParser;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/rows")
