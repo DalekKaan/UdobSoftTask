@@ -1,6 +1,7 @@
 package ru.r1b.udobsofttask.http.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,8 @@ import java.io.IOException;
 public class RowsController {
     private final RowsService service;
     private final XlsxParser xlsxParser;
+    @Value("${filesPath}")
+    private String filesPath;
 
     @Autowired
     public RowsController(RowsService service, XlsxParser xlsxParser) {
@@ -26,12 +29,12 @@ public class RowsController {
 
     @GetMapping("/min")
     public RowsMinSchema getMin(@RequestParam String path, @RequestParam int n) {
-        path = "/var/files/" + path; // todo: safety
+        path = filesPath + "/" +  path; // todo: safety
         try {
             return new RowsMinSchema(service.findMin(xlsxParser.parse(new FileInputStream(path)), n));
-        } catch (IOException e) {
+        } catch (Exception e) {
             // todo: validation error
-            return new RowsMinSchema(-1);
+            throw new RuntimeException(e);
         }
     }
 }

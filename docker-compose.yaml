@@ -9,3 +9,5 @@ services:
     restart: unless-stopped
     volumes:
       - ./files:/var/files
+    environment:
+      FILES_PATH: /var/files
