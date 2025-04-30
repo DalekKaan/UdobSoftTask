@@ -16,13 +16,17 @@ public class XlsxParser {
         var sheet = workbook.getSheetAt(0);
         int[] out = new int[sheet.getLastRowNum()+1];
 
+        // читаем файл, параллельно используя сортировку вставками
+
         int inserted = 0, pointer, val;
         for (Row row : sheet) {
             val = (int) row.getCell(0).getNumericCellValue();
 
             pointer = inserted;
+            // условие `val < out[pointer-1]` можно было бы вынести в какой-нибудь компаратор, но в рамках
+            // тестового задания решил этого не делать
             while(pointer > 0 && val < out[pointer-1]) {
-                // swap pointer-1, pointer
+                // swap pointer and pointer-1
                 out[pointer] = out[pointer] + out[pointer-1];
                 out[pointer-1] = out[pointer] - out[pointer-1];
                 out[pointer] = out[pointer] - out[pointer-1];
