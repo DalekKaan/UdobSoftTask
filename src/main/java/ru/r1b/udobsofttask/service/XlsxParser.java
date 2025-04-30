@@ -7,25 +7,32 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class XlsxParser {
     public List<Integer> parse(FileInputStream stream) throws IOException {
         Workbook workbook = new XSSFWorkbook(stream);
         var sheet = workbook.getSheetAt(0);
+        int[] out = new int[sheet.getLastRowNum()+1];
 
-        // todo:
-        // тут возможно есть смысл получать номер последней строки в документе и инициализировать сразу ArrayList
-        // вместо LinkedList для экономии памяти и времени выполнения, однако для этого вообще не помешает ввести
-        // некоторую валидацию документа
-        List<Integer> out = new LinkedList<>();
-
+        int inserted = 0, pointer, val;
         for (Row row : sheet) {
-            out.add((int) row.getCell(0).getNumericCellValue());
+            val = (int) row.getCell(0).getNumericCellValue();
+
+            pointer = inserted;
+            while(pointer > 0 && val < out[pointer-1]) {
+                // swap pointer-1, pointer
+                out[pointer] = out[pointer] + out[pointer-1];
+                out[pointer-1] = out[pointer] - out[pointer-1];
+                out[pointer] = out[pointer] - out[pointer-1];
+
+                pointer--;
+            }
+            out[pointer] = val;
+            inserted++;
         }
 
-        return out;
+        return new ArrayList<>(Arrays.stream(out).boxed().toList());
     }
 }
